@@ -27,6 +27,9 @@ void init_kalloc() {
 //    The handout code does not free memory and allocates memory in units
 //    of pages.
 void* kalloc(size_t sz) {
+    log_printf("Kalloc\n");
+    log_backtrace();
+
     if (sz == 0 || sz > PAGESIZE) {
         return nullptr;
     }

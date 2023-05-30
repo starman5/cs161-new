@@ -26,7 +26,7 @@ class memusage {
     // `f_process(pid)` is for memory associated with process `pid`
     static constexpr unsigned f_process(int pid) {
         if (pid >= 30) {
-            return 2U << 31;
+            return 2U << 31;  
         } else if (pid >= 1) {
             return 2U << pid;
         } else {
@@ -106,6 +106,7 @@ void memusage::refresh() {
                     if (it.user()) {
                         mark(it.pa(), f_user | f_process(pid));
                         it.next();
+                        //it += PAGESIZE;
                     } else {
                         it.next_range();
                     }
@@ -113,6 +114,11 @@ void memusage::refresh() {
             }
             p->unlock_pagetable_read(irqs);
         }
+    }
+
+    // mark the struct procs / stacks associated with idle processes on other cores
+    for (int i = 0; i < ncpu; ++i) {
+        mark(ka2pa(cpus[i].idle_task_), f_kernel);
     }
 }
 

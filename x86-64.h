@@ -29,7 +29,7 @@
 #define PTE_PS          0x80UL   // entry has a large Page Size
 #define PTE_PWT         0x8UL
 #define PTE_PCD         0x10UL
-#define PTE_XD          0x8000000000000000UL // entry is eXecute Disabled
+#define PTE_XD          0x8000000000000000UL // entry is eXecute Disabled   https://en.wikipedia.org/wiki/NX_bit
 // These flags are available for OS use (the processor ignores them):
 #define PTE_OS1         0x200UL
 #define PTE_OS2         0x400UL
